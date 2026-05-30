@@ -29,7 +29,9 @@
                             cashmere: '#D6C9BE',  // Luxurious beige/taupe
                             pearl: '#F8F9FA',     // Off-white background
                             charcoal: '#1A1C23',  // Almost black
-                            accent: '#8991A5'     // Soft blueish grey
+                            accent: '#8991A5',    // Soft blueish grey
+                            blush: '#E5D0CC',     // Soft colorful accent
+                            sage: '#B5C1B4'       // Soft colorful accent
                         }
                     },
                     fontFamily: {
@@ -40,12 +42,16 @@
                         'glass': '0 8px 32px 0 rgba(15, 23, 42, 0.1)',
                         'luxury': '0 30px 60px -15px rgba(0,0,0,0.1)',
                         'glow': '0 0 40px -10px rgba(214, 201, 190, 0.4)',
+                        'glow-color': '0 15px 40px -10px rgba(229, 208, 204, 0.6)',
+                        'glow-sage': '0 15px 40px -10px rgba(181, 193, 180, 0.6)',
                     },
                     animation: {
                         'float': 'float 8s ease-in-out infinite',
-                        'scroll-y': 'scrollY 50s linear infinite',
+                        'float-fast': 'float 5s ease-in-out infinite',
+                        'scroll-y': 'scrollY 20s linear infinite',
                         'fade-in': 'fadeIn 1.5s ease-out forwards',
                         'spin-slow': 'spin 15s linear infinite',
+                        'blob': 'blob 12s infinite',
                     },
                     keyframes: {
                         float: {
@@ -59,6 +65,12 @@
                         fadeIn: {
                             '0%': { opacity: '0', transform: 'translateY(20px)' },
                             '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(40px, -60px) scale(1.1)' },
+                            '66%': { transform: 'translate(-30px, 30px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
                         }
                     }
                 }
@@ -91,10 +103,10 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
         .glass-light {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
         }
 
         /* Ambient Grain */
@@ -131,9 +143,8 @@
             transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
         .luxury-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 30px 60px -15px rgba(15, 23, 42, 0.15);
-            border-color: #D6C9BE;
+            transform: translateY(-12px) scale(1.02);
+            border-color: rgba(214, 201, 190, 0.8);
         }
     </style>
 
@@ -141,96 +152,115 @@
 </head>
 <body class="bg-brand-pearl text-brand-slate font-sans antialiased overflow-x-hidden selection:bg-brand-cashmere selection:text-brand-navy">
 
+    <!-- Colorful Ambient Background Orbs -->
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none opacity-50">
+        <div class="absolute top-[10%] left-[-10%] w-[40vw] h-[40vw] rounded-full bg-brand-blush/30 mix-blend-multiply filter blur-[120px] animate-blob" style="animation-delay: 0s;"></div>
+        <div class="absolute bottom-[20%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-brand-sage/20 mix-blend-multiply filter blur-[120px] animate-blob" style="animation-delay: 4s;"></div>
+        <div class="absolute top-[60%] left-[30%] w-[35vw] h-[35vw] rounded-full bg-brand-cashmere/20 mix-blend-multiply filter blur-[100px] animate-blob" style="animation-delay: 8s;"></div>
+    </div>
+
+    <!-- Navigation -->
     <nav class="fixed w-full z-50 transition-all duration-500" id="navbar">
         <div class="max-w-7xl mx-auto px-6 py-4">
-            <div class="glass-dark rounded-full flex justify-between items-center px-4 py-2 shadow-glass border border-white/10">
-                <a href="#" class="flex items-center group relative p-1">
-                    <div class="absolute inset-0 bg-brand-cashmere/20 rounded-full blur-md group-hover:bg-brand-cashmere/40 transition-colors duration-500"></div>
-                    <img src="https://github.com/agelmet/PAPASOULI/blob/main/papaslogo.jpg?raw=true" alt="Αναστασία Παπασούλη Logo" class="relative w-14 h-14 object-cover rounded-full shadow-[0_0_15px_rgba(214,201,190,0.3)] transition-transform duration-700 group-hover:rotate-[360deg]">
+            <div class="glass-dark rounded-[3rem] flex justify-between items-center px-4 py-2 shadow-glass border border-white/10 relative">
+                
+                <!-- Much Bigger Logo -->
+                <a href="#" class="flex items-center group relative p-1 -ml-2">
+                    <div class="absolute inset-0 bg-brand-cashmere/30 rounded-full blur-xl group-hover:bg-brand-cashmere/50 transition-colors duration-500"></div>
+                    <img src="https://github.com/agelmet/PAPASOULI/blob/main/papaslogo.jpg?raw=true" alt="Αναστασία Παπασούλη Logo" class="relative w-20 h-20 md:w-24 md:h-24 object-cover rounded-full shadow-[0_0_25px_rgba(214,201,190,0.6)] transition-all duration-700 group-hover:rotate-[360deg] group-hover:scale-105 border-2 border-white/20">
                 </a>
                 
                 <div class="hidden lg:flex items-center space-x-10 pr-6">
-                    <a href="#about" class="text-xs font-semibold text-brand-pearl/80 hover:text-brand-cashmere uppercase tracking-widest-luxe transition-colors">Η Ψυχολογος</a>
-                    <a href="#services" class="text-xs font-semibold text-brand-pearl/80 hover:text-brand-cashmere uppercase tracking-widest-luxe transition-colors">Υπηρεσιες</a>
-                    <a href="#mindfulness" class="text-xs font-semibold text-brand-pearl/80 hover:text-brand-cashmere uppercase tracking-widest-luxe transition-colors">Προσεγγιση</a>
-                    <a href="#space" class="text-xs font-semibold text-brand-pearl/80 hover:text-brand-cashmere uppercase tracking-widest-luxe transition-colors">Ο Χωρος</a>
-                    <a href="#reviews" class="text-xs font-semibold text-brand-pearl/80 hover:text-brand-cashmere uppercase tracking-widest-luxe transition-colors">Εμπειριες</a>
-                    <a href="#contact" class="px-8 py-3 bg-brand-cashmere text-brand-navy rounded-full text-xs font-bold uppercase tracking-widest-luxe hover:bg-white hover:shadow-glow transition-all duration-300">Κλειστε Ραντεβου</a>
+                    <a href="#about" class="text-xs font-semibold text-brand-pearl/90 hover:text-brand-blush uppercase tracking-widest-luxe transition-colors drop-shadow-md">Η Ψυχολογος</a>
+                    <a href="#services" class="text-xs font-semibold text-brand-pearl/90 hover:text-brand-blush uppercase tracking-widest-luxe transition-colors drop-shadow-md">Υπηρεσιες</a>
+                    <a href="#mindfulness" class="text-xs font-semibold text-brand-pearl/90 hover:text-brand-blush uppercase tracking-widest-luxe transition-colors drop-shadow-md">Προσεγγιση</a>
+                    <a href="#space" class="text-xs font-semibold text-brand-pearl/90 hover:text-brand-blush uppercase tracking-widest-luxe transition-colors drop-shadow-md">Ο Χωρος</a>
+                    <a href="#reviews" class="text-xs font-semibold text-brand-pearl/90 hover:text-brand-blush uppercase tracking-widest-luxe transition-colors drop-shadow-md">Εμπειριες</a>
+                    <a href="#contact" class="px-8 py-3.5 bg-brand-cashmere text-brand-navy rounded-full text-xs font-bold uppercase tracking-widest-luxe hover:bg-white hover:shadow-[0_0_30px_rgba(214,201,190,0.8)] hover:-translate-y-1 transition-all duration-300">Κλειστε Ραντεβου</a>
                 </div>
 
                 <button class="lg:hidden text-brand-pearl focus:outline-none pr-4" id="mobile-menu-btn">
-                    <i data-lucide="menu" class="w-6 h-6"></i>
+                    <i data-lucide="menu" class="w-8 h-8 drop-shadow-md"></i>
                 </button>
             </div>
         </div>
         
-        <div id="mobile-menu" class="absolute top-full left-0 w-full glass-dark hidden flex-col items-center py-10 space-y-8 border-t border-white/10">
+        <div id="mobile-menu" class="absolute top-full left-0 w-full glass-dark hidden flex-col items-center py-10 space-y-8 border-t border-white/10 shadow-2xl">
             <a href="#about" class="text-sm font-semibold text-white tracking-widest-luxe uppercase mobile-link">Η Ψυχολογος</a>
             <a href="#services" class="text-sm font-semibold text-white tracking-widest-luxe uppercase mobile-link">Υπηρεσιες</a>
             <a href="#mindfulness" class="text-sm font-semibold text-white tracking-widest-luxe uppercase mobile-link">Προσεγγιση</a>
             <a href="#space" class="text-sm font-semibold text-white tracking-widest-luxe uppercase mobile-link">Ο Χωρος</a>
             <a href="#reviews" class="text-sm font-semibold text-white tracking-widest-luxe uppercase mobile-link">Εμπειριες</a>
-            <a href="#contact" class="px-10 py-4 bg-brand-cashmere text-brand-navy rounded-full text-sm font-bold tracking-widest-luxe uppercase mobile-link mt-4">Κλειστε Ραντεβου</a>
+            <a href="#contact" class="px-10 py-4 bg-brand-cashmere text-brand-navy rounded-full text-sm font-bold tracking-widest-luxe uppercase mobile-link mt-4 shadow-glow">Κλειστε Ραντεβου</a>
         </div>
     </nav>
 
+    <!-- Hero Section -->
     <section class="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-brand-charcoal">
         <div class="absolute inset-0 z-0">
-            <div class="w-full h-full bg-cover bg-center bg-fixed" style="background-image: url('https://github.com/agelmet/PAPASOULI/blob/main/papas8.jpg?raw=true');"></div>
+            <div class="w-full h-full bg-cover bg-center bg-fixed transform scale-105 animate-[float_20s_ease-in-out_infinite]" style="background-image: url('https://github.com/agelmet/PAPASOULI/blob/main/papas8.jpg?raw=true');"></div>
         </div>
         
-        <div class="absolute inset-0 bg-gradient-to-b from-brand-navy/90 via-brand-navy/70 to-brand-charcoal/95 z-10 mix-blend-multiply"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-brand-navy/80 via-brand-navy/60 to-brand-charcoal/95 z-10 mix-blend-multiply"></div>
         
-        <div class="relative z-20 text-center px-6 max-w-5xl mx-auto flex flex-col items-center justify-center pt-20">
+        <!-- Colorful overlays for Hero -->
+        <div class="absolute inset-0 bg-brand-sage/10 mix-blend-overlay z-10 animate-blob"></div>
+        
+        <div class="relative z-20 text-center px-6 max-w-5xl mx-auto flex flex-col items-center justify-center pt-24">
             <div class="animate-fade-in opacity-0" style="animation-delay: 0.2s;">
-                <span class="inline-block py-1 px-4 rounded-full border border-brand-cashmere/30 text-brand-cashmere text-xs font-semibold tracking-widest-luxe uppercase mb-8 backdrop-blur-md bg-brand-navy/30">
+                <span class="inline-block py-1 px-5 rounded-full border border-brand-cashmere/40 text-brand-cashmere text-xs font-bold tracking-widest-luxe uppercase mb-8 backdrop-blur-md bg-brand-navy/40 shadow-[0_0_20px_rgba(214,201,190,0.2)]">
                     Αναστασια Παπασουλη
                 </span>
             </div>
             
-            <h1 class="text-5xl md:text-6xl lg:text-8xl font-serif text-white leading-tight mb-8 animate-fade-in opacity-0 drop-shadow-2xl" style="animation-delay: 0.4s;">
+            <!-- Slightly smaller title -->
+            <h1 class="text-4xl md:text-5xl lg:text-7xl font-serif text-white leading-tight mb-8 animate-fade-in opacity-0 drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)]" style="animation-delay: 0.4s;">
                 Συστημική Ψυχοθεραπεία <br>
-                <span class="text-brand-cashmere italic font-light">& Αναπτυξιακή Υποστήριξη</span>
+                <span class="text-brand-blush italic font-light drop-shadow-[0_0_30px_rgba(229,208,204,0.4)]">& Αναπτυξιακή Υποστήριξη</span>
             </h1>
             
-            <p class="text-lg md:text-xl text-brand-pearl/80 max-w-2xl mx-auto mb-12 animate-fade-in opacity-0 font-light leading-relaxed" style="animation-delay: 0.6s;">
+            <p class="text-lg md:text-xl text-brand-pearl/90 max-w-2xl mx-auto mb-12 animate-fade-in opacity-0 font-light leading-relaxed drop-shadow-md" style="animation-delay: 0.6s;">
                 Από το παιδί στην οικογένεια. Ένας ασφαλής χώρος στο Γαλάτσι όπου η συστημική ματιά συναντά την ενσυνειδητότητα.
             </p>
             
             <div class="flex flex-col sm:flex-row items-center gap-6 animate-fade-in opacity-0" style="animation-delay: 0.8s;">
-                <a href="#contact" class="px-10 py-4 bg-brand-cashmere text-brand-navy rounded-full text-sm font-bold tracking-widest-luxe uppercase hover:bg-white hover:scale-105 transition-all duration-300 shadow-glow">
+                <a href="#contact" class="px-10 py-4 bg-brand-cashmere text-brand-navy rounded-full text-sm font-bold tracking-widest-luxe uppercase hover:bg-white hover:scale-105 transition-all duration-300 shadow-[0_0_40px_rgba(214,201,190,0.5)]">
                     Προγραμματιστε Συνεδρια
                 </a>
-                <a href="#about" class="px-10 py-4 bg-transparent border border-white/30 text-white rounded-full text-sm font-bold tracking-widest-luxe uppercase hover:border-brand-cashmere hover:bg-white/5 transition-all duration-300">
+                <a href="#about" class="px-10 py-4 bg-white/10 border border-white/30 text-white rounded-full text-sm font-bold tracking-widest-luxe uppercase hover:border-brand-blush hover:bg-white/20 transition-all duration-300 backdrop-blur-md">
                     Γνωριστε με
                 </a>
             </div>
         </div>
 
         <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
-            <i data-lucide="chevron-down" class="w-8 h-8 text-brand-cashmere opacity-70"></i>
+            <i data-lucide="chevron-down" class="w-10 h-10 text-brand-cashmere filter drop-shadow-[0_0_10px_rgba(214,201,190,0.8)]"></i>
         </div>
     </section>
 
-    <section id="about" class="py-32 px-6 bg-brand-pearl bg-grain overflow-hidden">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-16 lg:gap-24 items-center">
+    <!-- About Section -->
+    <section id="about" class="py-32 px-6 bg-brand-pearl bg-grain overflow-hidden relative">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-16 lg:gap-24 items-center relative z-10">
             
             <div class="lg:col-span-5 relative reveal">
-                <div class="absolute -inset-4 bg-brand-cashmere/20 rounded-[2rem] transform -rotate-3 blur-lg"></div>
-                <div class="relative aspect-[3/4] rounded-[2rem] overflow-hidden shadow-luxury animate-float border-[8px] border-white z-10">
+                <!-- Colorful animated backdrops -->
+                <div class="absolute -inset-8 bg-gradient-to-tr from-brand-cashmere to-brand-blush rounded-[3rem] transform -rotate-6 blur-2xl opacity-60 animate-blob"></div>
+                <div class="absolute -inset-4 bg-brand-navy/10 rounded-[2rem] transform rotate-3 blur-xl"></div>
+                
+                <div class="relative aspect-[3/4] rounded-[2rem] overflow-hidden shadow-luxury animate-float border-[6px] border-white z-10">
                     <img src="https://raw.githubusercontent.com/agelmet/PAPASOULI/refs/heads/main/papas1.jpg" alt="Αναστασία Παπασούλη - Ψυχολόγος" class="w-full h-full object-cover object-top scale-105 hover:scale-110 transition-transform duration-[1.5s] ease-in-out">
                 </div>
             </div>
 
             <div class="lg:col-span-7 reveal delay-200">
                 <div class="mb-8">
-                    <span class="text-brand-accent font-semibold tracking-widest-luxe text-xs uppercase">Η Ψυχολογος</span>
-                    <h2 class="text-4xl md:text-5xl font-serif text-brand-navy mt-4 mb-6 leading-tight">Συστημική Ψυχοθεραπεία & Αναπτυξιακή Υποστήριξη</h2>
+                    <span class="inline-block px-4 py-1 rounded-full bg-brand-cashmere/20 text-brand-navy font-bold tracking-widest-luxe text-xs uppercase shadow-sm">Η Ψυχολογος</span>
+                    <h2 class="text-4xl md:text-5xl font-serif text-brand-navy mt-6 mb-6 leading-tight drop-shadow-sm">Συστημική Ψυχοθεραπεία <br>& Αναπτυξιακή Υποστήριξη</h2>
                 </div>
                 
-                <div class="space-y-6 text-brand-slate leading-relaxed font-light">
+                <div class="space-y-6 text-brand-slate text-lg leading-relaxed font-light">
                     <p>
-                        Η <strong>Αναστασία Παπασούλη</strong> είναι αδειούχος Ψυχολόγος (Αρ. Αδείας: 7982) και Συστημική - Οικογενειακή Ψυχοθεραπεύτρια, διατηρώντας το ιδιωτικό της γραφείο στο Γαλάτσι. Το ακαδημαϊκό της υπόβαθρο είναι εξαιρετικά στοχευμένο, συνδυάζοντας την κλινική ψυχολογία με την αναπτυξιακή υποστήριξη: είναι πτυχιούχος του Εθνικού και Καποδιστριακού Πανεπιστημίου Αθηνών (ΕΚΠΑ), με εξειδίκευση στη Συστημική - Οικογενειακή Θεραπεία από το ιστορικό "Εργαστήριο Διερεύνησης Ανθρωπίνων Σχέσεων".
+                        Η <strong class="font-semibold text-brand-navy">Αναστασία Παπασούλη</strong> είναι αδειούχος Ψυχολόγος (Αρ. Αδείας: 7982) και Συστημική - Οικογενειακή Ψυχοθεραπεύτρια, διατηρώντας το ιδιωτικό της γραφείο στο Γαλάτσι. Το ακαδημαϊκό της υπόβαθρο είναι εξαιρετικά στοχευμένο, συνδυάζοντας την κλινική ψυχολογία με την αναπτυξιακή υποστήριξη: είναι πτυχιούχος του Εθνικού και Καποδιστριακού Πανεπιστημίου Αθηνών (ΕΚΠΑ), με εξειδίκευση στη Συστημική - Οικογενειακή Θεραπεία από το ιστορικό "Εργαστήριο Διερεύνησης Ανθρωπίνων Σχέσεων".
                     </p>
                     <p>
                         Η κλινική της κατάρτιση επεκτείνεται και στον αναπτυξιακό τομέα, έχοντας ολοκληρώσει μετεκπαιδεύσεις στη Μονάδα Αναπτυξιακής Παιδιατρικής της Β΄ Παιδιατρικής Κλινικής, καθώς και στη Σχολική Ψυχολογία (ΕΚΠΑ). Αυτό της επιτρέπει να προσεγγίζει τον θεραπευόμενο ολιστικά: είτε πρόκειται για ένα παιδί με μαθησιακές δυσκολίες, είτε για έναν ενήλικα που παλεύει με το άγχος, η ματιά της αναζητά τη ρίζα του ζητήματος μέσα στο περιβάλλον στο οποίο ανήκει.
@@ -240,100 +270,104 @@
                     </p>
                 </div>
 
-                <div class="mt-12 flex items-center gap-4">
-                    <div class="w-12 h-[1px] bg-brand-cashmere"></div>
-                    <span class="font-serif italic text-xl text-brand-navy">Αναστασία Παπασούλη</span>
+                <div class="mt-12 flex items-center gap-4 bg-white/50 inline-flex p-4 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.05)] border border-white backdrop-blur-sm">
+                    <div class="w-12 h-[2px] bg-gradient-to-r from-brand-cashmere to-brand-blush"></div>
+                    <span class="font-serif italic text-2xl text-brand-navy">Αναστασία Παπασούλη</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="services" class="py-32 px-6 bg-white relative">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-20 reveal">
-                <span class="text-brand-accent font-semibold tracking-widest-luxe text-xs uppercase">Εξειδικευση</span>
-                <h2 class="text-4xl md:text-5xl font-serif text-brand-navy mt-4 mb-6">Υπηρεσίες</h2>
-                <div class="w-16 h-[2px] bg-brand-cashmere mx-auto"></div>
+    <!-- Services Section -->
+    <section id="services" class="py-32 px-6 bg-white relative overflow-hidden">
+        <div class="absolute top-1/2 left-1/4 w-96 h-96 bg-brand-sage/10 rounded-full mix-blend-multiply filter blur-[100px] animate-blob"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-brand-blush/20 rounded-full mix-blend-multiply filter blur-[100px] animate-blob" style="animation-delay: 3s;"></div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-24 reveal">
+                <span class="inline-block px-4 py-1 rounded-full bg-brand-sage/20 text-brand-navy font-bold tracking-widest-luxe text-xs uppercase shadow-sm mb-4">Εξειδικευση</span>
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-serif text-brand-navy mb-6 drop-shadow-sm">Υπηρεσίες</h2>
+                <div class="w-24 h-[3px] bg-gradient-to-r from-brand-cashmere via-brand-blush to-brand-sage mx-auto rounded-full"></div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 
-                <div class="luxury-card glass-light p-10 rounded-2xl reveal border border-gray-100 relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity duration-500">
-                        <i data-lucide="users" class="w-32 h-32 text-brand-navy"></i>
+                <div class="luxury-card glass-light p-12 rounded-[2rem] reveal border border-white shadow-[0_15px_40px_-10px_rgba(0,0,0,0.05)] hover:shadow-glow-color relative overflow-hidden group bg-gradient-to-br from-white/80 to-brand-blush/5">
+                    <div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-20 transition-opacity duration-700 transform group-hover:scale-110">
+                        <i data-lucide="users" class="w-40 h-40 text-brand-blush"></i>
                     </div>
                     <div class="relative z-10">
-                        <div class="w-14 h-14 bg-brand-pearl rounded-full flex items-center justify-center mb-6 shadow-sm border border-brand-cashmere/30 text-brand-navy">
-                            <i data-lucide="users" class="w-6 h-6"></i>
+                        <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-8 shadow-md border border-brand-blush/30 text-brand-navy transform group-hover:-translate-y-2 transition-transform duration-500">
+                            <i data-lucide="users" class="w-8 h-8"></i>
                         </div>
-                        <h3 class="text-2xl font-serif font-bold text-brand-navy mb-4">Οικογενειακή Θεραπεία, Ζεύγος & Συμβουλευτική Γονέων</h3>
-                        <p class="text-brand-slate font-light mb-6 leading-relaxed">
+                        <h3 class="text-3xl font-serif font-bold text-brand-navy mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-brand-navy group-hover:to-brand-blush transition-all duration-300">Οικογενειακή Θεραπεία, Ζεύγος & Συμβουλευτική Γονέων</h3>
+                        <p class="text-brand-slate font-light mb-8 leading-relaxed text-lg">
                             Στη Συστημική προσέγγιση, αντιμετωπίζουμε το "πρόβλημα" όχι ως ατομικό βάρος, αλλά ως μια πρόκληση που αφορά όλο το σύστημα της οικογένειας. Παρέχονται συνεδρίες για ζευγάρια που επιθυμούν να βελτιώσουν την επικοινωνία τους, καθώς και υποστήριξη σε γονείς που καλούνται να διαχειριστούν απαιτητικές συμπεριφορές των παιδιών τους, θέτοντας υγιή όρια και χτίζοντας μια σχέση εμπιστοσύνης.
                         </p>
                         <div class="flex flex-wrap gap-2 mt-auto">
-                            <span class="px-3 py-1 bg-brand-navy/5 text-brand-navy text-[10px] uppercase tracking-wider font-semibold rounded">Οικογενειακη θεραπεια (60')</span>
-                            <span class="px-3 py-1 bg-brand-navy/5 text-brand-navy text-[10px] uppercase tracking-wider font-semibold rounded">Ζευγος (90')</span>
-                            <span class="px-3 py-1 bg-brand-navy/5 text-brand-navy text-[10px] uppercase tracking-wider font-semibold rounded">Γονεων (60')</span>
+                            <span class="px-4 py-1.5 bg-white text-brand-navy text-[11px] uppercase tracking-wider font-bold rounded-full shadow-sm border border-gray-100">Οικογενειακη (60')</span>
+                            <span class="px-4 py-1.5 bg-white text-brand-navy text-[11px] uppercase tracking-wider font-bold rounded-full shadow-sm border border-gray-100">Ζευγος (90')</span>
+                            <span class="px-4 py-1.5 bg-white text-brand-navy text-[11px] uppercase tracking-wider font-bold rounded-full shadow-sm border border-gray-100">Γονεων (60')</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="luxury-card glass-light p-10 rounded-2xl reveal delay-100 border border-gray-100 relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity duration-500">
-                        <i data-lucide="baby" class="w-32 h-32 text-brand-navy"></i>
+                <div class="luxury-card glass-light p-12 rounded-[2rem] reveal delay-100 border border-white shadow-[0_15px_40px_-10px_rgba(0,0,0,0.05)] hover:shadow-glow-sage relative overflow-hidden group bg-gradient-to-br from-white/80 to-brand-sage/5">
+                    <div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-20 transition-opacity duration-700 transform group-hover:scale-110">
+                        <i data-lucide="baby" class="w-40 h-40 text-brand-sage"></i>
                     </div>
                     <div class="relative z-10">
-                        <div class="w-14 h-14 bg-brand-pearl rounded-full flex items-center justify-center mb-6 shadow-sm border border-brand-cashmere/30 text-brand-navy">
-                            <i data-lucide="baby" class="w-6 h-6"></i>
+                        <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-8 shadow-md border border-brand-sage/30 text-brand-navy transform group-hover:-translate-y-2 transition-transform duration-500">
+                            <i data-lucide="baby" class="w-8 h-8"></i>
                         </div>
-                        <h3 class="text-2xl font-serif font-bold text-brand-navy mb-4">Ψυχολογία Παιδιού, Εφήβου & Μαθησιακές Δυσκολίες</h3>
-                        <p class="text-brand-slate font-light mb-6 leading-relaxed">
+                        <h3 class="text-3xl font-serif font-bold text-brand-navy mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-brand-navy group-hover:to-brand-sage transition-all duration-300">Ψυχολογία Παιδιού, Εφήβου & Μαθησιακές Δυσκολίες</h3>
+                        <p class="text-brand-slate font-light mb-8 leading-relaxed text-lg">
                             Με ισχυρή βάση στην αναπτυξιακή παιδιατρική, η ψυχολόγος υποστηρίζει παιδιά και εφήβους που αντιμετωπίζουν συναισθηματικές δυσκολίες, μαθησιακά ζητήματα ή ελλειμματική προσοχή (ΔΕΠΥ). Στόχος είναι η ενίσχυση της αυτοπεποίθησης του παιδιού και η ομαλή ένταξή του στο σχολικό και κοινωνικό περιβάλλον, με μεθόδους που σέβονται τον προσωπικό του ρυθμό.
                         </p>
                         <div class="flex flex-wrap gap-2 mt-auto">
-                            <span class="px-3 py-1 bg-brand-navy/5 text-brand-navy text-[10px] uppercase tracking-wider font-semibold rounded">Παιδια & Εφηβοι (50')</span>
-                            <span class="px-3 py-1 bg-brand-navy/5 text-brand-navy text-[10px] uppercase tracking-wider font-semibold rounded">Σχολικη Ψυχολογια</span>
-                            <span class="px-3 py-1 bg-brand-navy/5 text-brand-navy text-[10px] uppercase tracking-wider font-semibold rounded">ΔΕΠΥ</span>
+                            <span class="px-4 py-1.5 bg-white text-brand-navy text-[11px] uppercase tracking-wider font-bold rounded-full shadow-sm border border-gray-100">Παιδια & Εφηβοι (50')</span>
+                            <span class="px-4 py-1.5 bg-white text-brand-navy text-[11px] uppercase tracking-wider font-bold rounded-full shadow-sm border border-gray-100">Σχολικη Ψυχολογια</span>
+                            <span class="px-4 py-1.5 bg-white text-brand-navy text-[11px] uppercase tracking-wider font-bold rounded-full shadow-sm border border-gray-100">ΔΕΠΥ</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="luxury-card glass-light p-10 rounded-2xl reveal border border-gray-100 relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity duration-500">
-                        <i data-lucide="brain" class="w-32 h-32 text-brand-navy"></i>
+                <div class="luxury-card glass-light p-12 rounded-[2rem] reveal border border-white shadow-[0_15px_40px_-10px_rgba(0,0,0,0.05)] hover:shadow-glow-color relative overflow-hidden group bg-gradient-to-br from-white/80 to-brand-cashmere/10">
+                    <div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-20 transition-opacity duration-700 transform group-hover:scale-110">
+                        <i data-lucide="brain" class="w-40 h-40 text-brand-cashmere"></i>
                     </div>
                     <div class="relative z-10">
-                        <div class="w-14 h-14 bg-brand-pearl rounded-full flex items-center justify-center mb-6 shadow-sm border border-brand-cashmere/30 text-brand-navy">
-                            <i data-lucide="brain" class="w-6 h-6"></i>
+                        <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-8 shadow-md border border-brand-cashmere/40 text-brand-navy transform group-hover:-translate-y-2 transition-transform duration-500">
+                            <i data-lucide="brain" class="w-8 h-8"></i>
                         </div>
-                        <h3 class="text-2xl font-serif font-bold text-brand-navy mb-4">Άγχος, Κατάθλιψη & Διαχείριση Κρίσεων (Ενήλικες)</h3>
-                        <p class="text-brand-slate font-light mb-6 leading-relaxed">
+                        <h3 class="text-3xl font-serif font-bold text-brand-navy mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-brand-navy group-hover:to-brand-cashmere transition-all duration-300">Άγχος, Κατάθλιψη & Διαχείριση Κρίσεων (Ενήλικες)</h3>
+                        <p class="text-brand-slate font-light mb-8 leading-relaxed text-lg">
                             Η μείζων καταθλιπτική διαταραχή, οι κρίσεις πανικού και το έντονο στρες απαιτούν άμεση και επιστημονική παρέμβαση. Χρησιμοποιώντας το Συνθετικό-Συστημικό μοντέλο σε συνδυασμό με τεχνικές Mindfulness, βοηθάμε το νευρικό σύστημα να ηρεμήσει, αποδομούμε τις δυσλειτουργικές σκέψεις και ενδυναμώνουμε τον εαυτό σας ώστε να αντιμετωπίζει αποτελεσματικά τις προκλήσεις της ζωής.
                         </p>
                         <div class="flex flex-wrap gap-2 mt-auto">
-                            <span class="px-3 py-1 bg-brand-navy/5 text-brand-navy text-[10px] uppercase tracking-wider font-semibold rounded">Ατομικη (60')</span>
-                            <span class="px-3 py-1 bg-brand-navy/5 text-brand-navy text-[10px] uppercase tracking-wider font-semibold rounded">Καταθλιψη</span>
-                            <span class="px-3 py-1 bg-brand-navy/5 text-brand-navy text-[10px] uppercase tracking-wider font-semibold rounded">Κριση Πανικου</span>
+                            <span class="px-4 py-1.5 bg-white text-brand-navy text-[11px] uppercase tracking-wider font-bold rounded-full shadow-sm border border-gray-100">Ατομικη (60')</span>
+                            <span class="px-4 py-1.5 bg-white text-brand-navy text-[11px] uppercase tracking-wider font-bold rounded-full shadow-sm border border-gray-100">Καταθλιψη</span>
+                            <span class="px-4 py-1.5 bg-white text-brand-navy text-[11px] uppercase tracking-wider font-bold rounded-full shadow-sm border border-gray-100">Κριση Πανικου</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="luxury-card glass-light p-10 rounded-2xl reveal delay-100 border border-gray-100 relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity duration-500">
-                        <i data-lucide="laptop" class="w-32 h-32 text-brand-navy"></i>
+                <div class="luxury-card glass-light p-12 rounded-[2rem] reveal delay-100 border border-white shadow-[0_15px_40px_-10px_rgba(0,0,0,0.05)] hover:shadow-glow relative overflow-hidden group bg-gradient-to-br from-white/80 to-brand-accent/5">
+                    <div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-20 transition-opacity duration-700 transform group-hover:scale-110">
+                        <i data-lucide="laptop" class="w-40 h-40 text-brand-accent"></i>
                     </div>
                     <div class="relative z-10">
-                        <div class="w-14 h-14 bg-brand-pearl rounded-full flex items-center justify-center mb-6 shadow-sm border border-brand-cashmere/30 text-brand-navy">
-                            <i data-lucide="laptop" class="w-6 h-6"></i>
+                        <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-8 shadow-md border border-brand-accent/30 text-brand-navy transform group-hover:-translate-y-2 transition-transform duration-500">
+                            <i data-lucide="laptop" class="w-8 h-8"></i>
                         </div>
-                        <h3 class="text-2xl font-serif font-bold text-brand-navy mb-4">Διαδικτυακή Ψυχοθεραπεία & Κοινωνική Μέριμνα</h3>
-                        <p class="text-brand-slate font-light mb-6 leading-relaxed">
+                        <h3 class="text-3xl font-serif font-bold text-brand-navy mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-brand-navy group-hover:to-brand-accent transition-all duration-300">Διαδικτυακή Ψυχοθεραπεία & Κοινωνική Μέριμνα</h3>
+                        <p class="text-brand-slate font-light mb-8 leading-relaxed text-lg">
                             Προσφέρονται συνεδρίες μέσω βιντεοκλήσης για όσους δεν μπορούν να προσέλθουν στο γραφείο στο Γαλάτσι, εξασφαλίζοντας την ίδια υψηλή ποιότητα φροντίδας. Επιπλέον, αναγνωρίζοντας τις κοινωνικές ανάγκες της εποχής, παρέχεται ειδικό κόστος επίσκεψης για ανέργους και φοιτητές, ενισχύοντας την πρόσβαση όλων στην ψυχική υγεία.
                         </p>
                         <div class="flex flex-wrap gap-2 mt-auto">
-                            <span class="px-3 py-1 bg-brand-navy/5 text-brand-navy text-[10px] uppercase tracking-wider font-semibold rounded">Online (60')</span>
-                            <span class="px-3 py-1 bg-brand-navy/5 text-brand-navy text-[10px] uppercase tracking-wider font-semibold rounded">Φοιτητες</span>
-                            <span class="px-3 py-1 bg-brand-navy/5 text-brand-navy text-[10px] uppercase tracking-wider font-semibold rounded">Ανεργοι</span>
+                            <span class="px-4 py-1.5 bg-white text-brand-navy text-[11px] uppercase tracking-wider font-bold rounded-full shadow-sm border border-gray-100">Online (60')</span>
+                            <span class="px-4 py-1.5 bg-white text-brand-navy text-[11px] uppercase tracking-wider font-bold rounded-full shadow-sm border border-gray-100">Φοιτητες</span>
+                            <span class="px-4 py-1.5 bg-white text-brand-navy text-[11px] uppercase tracking-wider font-bold rounded-full shadow-sm border border-gray-100">Ανεργοι</span>
                         </div>
                     </div>
                 </div>
@@ -342,188 +376,211 @@
         </div>
     </section>
 
+    <!-- Mindfulness / Approach Section -->
     <section id="mindfulness" class="py-32 px-6 bg-brand-charcoal text-brand-pearl relative overflow-hidden">
-        <div class="absolute top-[-20%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-brand-navy/50 blur-[150px] pointer-events-none"></div>
-        <div class="absolute bottom-[-20%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-brand-cashmere/10 blur-[150px] pointer-events-none"></div>
+        <div class="absolute top-[-20%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-brand-navy/60 blur-[150px] pointer-events-none animate-blob"></div>
+        <div class="absolute bottom-[-20%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-brand-cashmere/15 blur-[150px] pointer-events-none animate-blob" style="animation-delay: 5s;"></div>
+        <div class="absolute top-[40%] left-[40%] w-[30vw] h-[30vw] rounded-full bg-brand-blush/10 blur-[100px] pointer-events-none animate-blob" style="animation-delay: 2s;"></div>
 
         <div class="max-w-5xl mx-auto relative z-10">
             <div class="text-center mb-20 reveal">
-                <span class="text-brand-cashmere font-semibold tracking-widest-luxe text-xs uppercase">Η Θεραπευτικη Γεφυρα</span>
-                <h2 class="text-4xl md:text-5xl font-serif text-white mt-4 mb-6 leading-tight">Η Ενσυνειδητότητα μέσα στο "Σύστημα"</h2>
-                <p class="text-xl font-light text-brand-pearl/70 max-w-3xl mx-auto">Η γέφυρα ανάμεσα στον εαυτό και τους άλλους.</p>
+                <span class="inline-block px-4 py-1 rounded-full border border-brand-cashmere/30 text-brand-cashmere font-bold tracking-widest-luxe text-xs uppercase mb-6 shadow-[0_0_15px_rgba(214,201,190,0.2)]">Η Θεραπευτικη Γεφυρα</span>
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-serif text-white mt-4 mb-6 leading-tight drop-shadow-lg">Η Ενσυνειδητότητα μέσα στο "Σύστημα"</h2>
+                <p class="text-xl font-light text-brand-pearl/80 max-w-3xl mx-auto">Η γέφυρα ανάμεσα στον εαυτό και τους άλλους.</p>
             </div>
 
-            <div class="glass-dark p-8 md:p-12 rounded-3xl border border-white/10 reveal delay-100 mb-16">
-                <p class="text-lg font-light leading-relaxed mb-6">
+            <div class="glass-dark p-8 md:p-12 rounded-[2.5rem] border border-white/10 reveal delay-100 mb-16 shadow-[0_20px_50px_rgba(0,0,0,0.3)] hover:border-brand-cashmere/30 transition-colors duration-500">
+                <p class="text-xl font-light leading-relaxed mb-6 text-brand-pearl/90">
                     Αν η Συστημική Ψυχοθεραπεία είναι ο τρόπος με τον οποίο κατανοούμε τις σχέσεις μας με τους άλλους, η Ενσυνειδητότητα (Mindfulness) είναι ο τρόπος με τον οποίο κατανοούμε τη σχέση μας με τον εαυτό μας. Πολλοί ρωτούν:
                 </p>
-                <blockquote class="border-l-2 border-brand-cashmere pl-6 py-2 my-8 text-2xl font-serif text-brand-cashmere italic">
+                <blockquote class="border-l-4 border-brand-blush pl-8 py-4 my-10 text-3xl font-serif text-transparent bg-clip-text bg-gradient-to-r from-brand-cashmere to-brand-blush italic drop-shadow-md">
                     «Πώς μπορώ να είμαι ήρεμος και "παρών", όταν η οικογένεια ή η δουλειά μου είναι ένα χάος;»
                 </blockquote>
-                <p class="text-lg font-light leading-relaxed text-white">
-                    Αυτό είναι το κλειδί της δικής μου θεραπευτικής προσέγγισης: <strong>Η ικανότητα να κρατάς το κέντρο σου, ενώ ο κόσμος γύρω σου κινείται.</strong>
+                <p class="text-xl font-light leading-relaxed text-white">
+                    Αυτό είναι το κλειδί της δικής μου θεραπευτικής προσέγγισης: <strong class="text-brand-cashmere font-semibold">Η ικανότητα να κρατάς το κέντρο σου, ενώ ο κόσμος γύρω σου κινείται.</strong>
                 </p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="reveal border-t border-brand-cashmere/30 pt-6">
-                    <h4 class="text-xl font-serif font-bold text-white mb-4">Το Σύστημα ως Καθρέφτης</h4>
-                    <p class="text-brand-pearl/60 font-light text-sm leading-relaxed">
+            <div class="grid md:grid-cols-3 gap-10">
+                <div class="reveal border-t border-brand-cashmere/30 pt-8 group hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-12 h-12 rounded-full bg-brand-navy border border-brand-cashmere/30 flex items-center justify-center mb-6 text-brand-cashmere group-hover:scale-110 transition-transform shadow-[0_0_20px_rgba(214,201,190,0.2)]">
+                        <span class="font-serif text-xl font-bold">1</span>
+                    </div>
+                    <h4 class="text-2xl font-serif font-bold text-white mb-4">Το Σύστημα ως Καθρέφτης</h4>
+                    <p class="text-brand-pearl/70 font-light text-base leading-relaxed">
                         Όταν δουλεύουμε συστημικά, δεν απομονώνουμε το πρόβλημά σας. Κοιτάζουμε πώς το άγχος ή η κατάθλιψή σας "συνομιλούν" με το περιβάλλον σας. Πολλές φορές, το σύμπτωμα που νιώθετε είναι η δική σας προσπάθεια να διατηρήσετε την ισορροπία σε μια οικογένεια ή μια εργασία που πιέζει. Το να αναγνωρίσετε αυτόν τον ρόλο είναι το πρώτο μεγάλο βήμα απελευθέρωσης.
                     </p>
                 </div>
-                <div class="reveal delay-100 border-t border-brand-cashmere/30 pt-6">
-                    <h4 class="text-xl font-serif font-bold text-white mb-4">Το Mindfulness ως "Παύση"</h4>
-                    <p class="text-brand-pearl/60 font-light text-sm leading-relaxed">
-                        Στην τρέλα της καθημερινότητας, ο εγκέφαλός μας συνηθίζει να αντιδρά αυτόματα. Το Mindfulness, που εφαρμόζω στις συνεδρίες μου, δεν είναι απλώς μια άσκηση χαλάρωσης. Είναι μια "παύση" που σας διδάσκω να κάνετε. Είναι η στιγμή που μαθαίνετε να παρατηρείτε τον πανικό ή τη θλίψη σας, αντί να γίνεστε εσείς το ίδιο το συναίσθημα. Είναι η ικανότητα να βάζετε ένα "φρένο" πριν η κρίση πανικού ή η κρίση θυμού σας κυριεύσει.
+                <div class="reveal delay-100 border-t border-brand-blush/30 pt-8 group hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-12 h-12 rounded-full bg-brand-navy border border-brand-blush/30 flex items-center justify-center mb-6 text-brand-blush group-hover:scale-110 transition-transform shadow-[0_0_20px_rgba(229,208,204,0.2)]">
+                        <span class="font-serif text-xl font-bold">2</span>
+                    </div>
+                    <h4 class="text-2xl font-serif font-bold text-white mb-4">Το Mindfulness ως "Παύση"</h4>
+                    <p class="text-brand-pearl/70 font-light text-base leading-relaxed">
+                        Στην τρέλα της καθημερινότητας, ο εγκέφαλός μας συνηθίζει να αντιδρά αυτόματα. Το Mindfulness, που εφαρμόζω στις συνεδρίες μου, δεν είναι απλώς μια άσκηση χαλάρωσης. Είναι μια "παύση" που σας διδάσκω να κάνετε. Είναι η στιγμή που μαθαίνετε να παρατηρείτε τον πανικό ή τη θλίψη σας, αντί να γίνεστε εσείς το ίδιο το συναίσθημα. Είναι η ικανότητα να βάζετε ένα "φρένο" πριν η κρίση πανικού κυριεύσει.
                     </p>
                 </div>
-                <div class="reveal delay-200 border-t border-brand-cashmere/30 pt-6">
-                    <h4 class="text-xl font-serif font-bold text-white mb-4">Από τη Θεωρία στην Πράξη</h4>
-                    <p class="text-brand-pearl/60 font-light text-sm leading-relaxed">
-                        Με το υπόβαθρο μου στην Παιδιατρική και τη Σχολική Ψυχολογία, γνωρίζω καλά πως η θεωρία δεν αρκεί. Χρειάζονται εργαλεία. Στο γραφείο μου, δεν θα αναλύσουμε απλώς το "γιατί". Θα μάθουμε το "πώς". Πώς να αναπνέετε όταν η πίεση ανεβαίνει, πώς να επικοινωνείτε τα όριά σας στους άλλους χωρίς να νιώθετε ενοχές και πώς να φροντίζετε το σύστημά σας (τον εαυτό σας και τους δικούς σας) με περισσότερη συνείδηση και λιγότερο φόβο.
+                <div class="reveal delay-200 border-t border-brand-sage/30 pt-8 group hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-12 h-12 rounded-full bg-brand-navy border border-brand-sage/30 flex items-center justify-center mb-6 text-brand-sage group-hover:scale-110 transition-transform shadow-[0_0_20px_rgba(181,193,180,0.2)]">
+                        <span class="font-serif text-xl font-bold">3</span>
+                    </div>
+                    <h4 class="text-2xl font-serif font-bold text-white mb-4">Από τη Θεωρία στην Πράξη</h4>
+                    <p class="text-brand-pearl/70 font-light text-base leading-relaxed">
+                        Με το υπόβαθρο μου στην Παιδιατρική και τη Σχολική Ψυχολογία, γνωρίζω καλά πως η θεωρία δεν αρκεί. Χρειάζονται εργαλεία. Στο γραφείο μου, δεν θα αναλύσουμε απλώς το "γιατί". Θα μάθουμε το "πώς". Πώς να αναπνέετε όταν η πίεση ανεβαίνει, πώς να επικοινωνείτε τα όριά σας στους άλλους χωρίς να νιώθετε ενοχές και πώς να φροντίζετε το σύστημά σας με περισσότερη συνείδηση και λιγότερο φόβο.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="space" class="py-32 px-6 bg-brand-pearl bg-grain">
-        <div class="max-w-7xl mx-auto">
+    <!-- Space Section (Gallery) -->
+    <section id="space" class="py-32 px-6 bg-brand-pearl bg-grain relative">
+        <div class="max-w-7xl mx-auto relative z-10">
             <div class="text-center mb-20 reveal">
-                <span class="text-brand-accent font-semibold tracking-widest-luxe text-xs uppercase">Περιβαλλον</span>
-                <h2 class="text-4xl md:text-5xl font-serif text-brand-navy mt-4 mb-6">Ο Χώρος</h2>
-                <p class="text-brand-slate font-light max-w-2xl mx-auto">Ένα περιβάλλον σχεδιασμένο για να αποπνέει ηρεμία, ζεστασιά και απόλυτη ιδιωτικότητα.</p>
+                <span class="inline-block px-4 py-1 rounded-full bg-white text-brand-navy font-bold tracking-widest-luxe text-xs uppercase shadow-sm border border-gray-100 mb-4">Περιβαλλον</span>
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-serif text-brand-navy mb-6">Ο Χώρος</h2>
+                <p class="text-brand-slate font-light text-lg max-w-2xl mx-auto">Ένα περιβάλλον σχεδιασμένο για να αποπνέει ηρεμία, ζεστασιά και απόλυτη ιδιωτικότητα.</p>
             </div>
 
             <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
-                <button class="w-full break-inside-avoid overflow-hidden group relative reveal shadow-md hover:shadow-xl transition-all duration-500 rounded" onclick="openLightbox('https://github.com/agelmet/PAPASOULI/blob/main/papas2.jpg?raw=true')">
-                    <img src="https://github.com/agelmet/PAPASOULI/blob/main/papas2.jpg?raw=true" alt="Χώρος" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-brand-navy/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
-                        <i data-lucide="expand" class="w-8 h-8 text-white"></i>
+                <!-- Image Cards -->
+                <button class="w-full break-inside-avoid overflow-hidden group relative reveal shadow-lg hover:shadow-2xl hover:shadow-brand-cashmere/30 transition-all duration-500 rounded-2xl border-4 border-white" onclick="openLightbox('https://github.com/agelmet/PAPASOULI/blob/main/papas2.jpg?raw=true')">
+                    <img src="https://github.com/agelmet/PAPASOULI/blob/main/papas2.jpg?raw=true" alt="Χώρος" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-[1s]">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-navy/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6 backdrop-blur-[2px]">
+                        <i data-lucide="zoom-in" class="w-10 h-10 text-white drop-shadow-md"></i>
                     </div>
                 </button>
-                <button class="w-full break-inside-avoid overflow-hidden group relative reveal delay-100 shadow-md hover:shadow-xl transition-all duration-500 rounded" onclick="openLightbox('https://github.com/agelmet/PAPASOULI/blob/main/papas3.jpg?raw=true')">
-                    <img src="https://github.com/agelmet/PAPASOULI/blob/main/papas3.jpg?raw=true" alt="Χώρος" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-brand-navy/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
-                        <i data-lucide="expand" class="w-8 h-8 text-white"></i>
+                <button class="w-full break-inside-avoid overflow-hidden group relative reveal delay-100 shadow-lg hover:shadow-2xl hover:shadow-brand-cashmere/30 transition-all duration-500 rounded-2xl border-4 border-white" onclick="openLightbox('https://github.com/agelmet/PAPASOULI/blob/main/papas3.jpg?raw=true')">
+                    <img src="https://github.com/agelmet/PAPASOULI/blob/main/papas3.jpg?raw=true" alt="Χώρος" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-[1s]">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-navy/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6 backdrop-blur-[2px]">
+                        <i data-lucide="zoom-in" class="w-10 h-10 text-white drop-shadow-md"></i>
                     </div>
                 </button>
-                <button class="w-full break-inside-avoid overflow-hidden group relative reveal delay-200 shadow-md hover:shadow-xl transition-all duration-500 rounded" onclick="openLightbox('https://github.com/agelmet/PAPASOULI/blob/main/papas4.jpg?raw=true')">
-                    <img src="https://github.com/agelmet/PAPASOULI/blob/main/papas4.jpg?raw=true" alt="Χώρος" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-brand-navy/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
-                        <i data-lucide="expand" class="w-8 h-8 text-white"></i>
+                <button class="w-full break-inside-avoid overflow-hidden group relative reveal delay-200 shadow-lg hover:shadow-2xl hover:shadow-brand-cashmere/30 transition-all duration-500 rounded-2xl border-4 border-white" onclick="openLightbox('https://github.com/agelmet/PAPASOULI/blob/main/papas4.jpg?raw=true')">
+                    <img src="https://github.com/agelmet/PAPASOULI/blob/main/papas4.jpg?raw=true" alt="Χώρος" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-[1s]">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-navy/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6 backdrop-blur-[2px]">
+                        <i data-lucide="zoom-in" class="w-10 h-10 text-white drop-shadow-md"></i>
                     </div>
                 </button>
-                <button class="w-full break-inside-avoid overflow-hidden group relative reveal shadow-md hover:shadow-xl transition-all duration-500 rounded" onclick="openLightbox('https://github.com/agelmet/PAPASOULI/blob/main/papas5.jpg?raw=true')">
-                    <img src="https://github.com/agelmet/PAPASOULI/blob/main/papas5.jpg?raw=true" alt="Χώρος" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-brand-navy/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
-                        <i data-lucide="expand" class="w-8 h-8 text-white"></i>
+                <button class="w-full break-inside-avoid overflow-hidden group relative reveal shadow-lg hover:shadow-2xl hover:shadow-brand-cashmere/30 transition-all duration-500 rounded-2xl border-4 border-white" onclick="openLightbox('https://github.com/agelmet/PAPASOULI/blob/main/papas5.jpg?raw=true')">
+                    <img src="https://github.com/agelmet/PAPASOULI/blob/main/papas5.jpg?raw=true" alt="Χώρος" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-[1s]">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-navy/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6 backdrop-blur-[2px]">
+                        <i data-lucide="zoom-in" class="w-10 h-10 text-white drop-shadow-md"></i>
                     </div>
                 </button>
-                <button class="w-full break-inside-avoid overflow-hidden group relative reveal delay-100 shadow-md hover:shadow-xl transition-all duration-500 rounded" onclick="openLightbox('https://github.com/agelmet/PAPASOULI/blob/main/papas6.jpg?raw=true')">
-                    <img src="https://github.com/agelmet/PAPASOULI/blob/main/papas6.jpg?raw=true" alt="Χώρος" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-brand-navy/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
-                        <i data-lucide="expand" class="w-8 h-8 text-white"></i>
+                <button class="w-full break-inside-avoid overflow-hidden group relative reveal delay-100 shadow-lg hover:shadow-2xl hover:shadow-brand-cashmere/30 transition-all duration-500 rounded-2xl border-4 border-white" onclick="openLightbox('https://github.com/agelmet/PAPASOULI/blob/main/papas6.jpg?raw=true')">
+                    <img src="https://github.com/agelmet/PAPASOULI/blob/main/papas6.jpg?raw=true" alt="Χώρος" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-[1s]">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-navy/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6 backdrop-blur-[2px]">
+                        <i data-lucide="zoom-in" class="w-10 h-10 text-white drop-shadow-md"></i>
                     </div>
                 </button>
-                <button class="w-full break-inside-avoid overflow-hidden group relative reveal delay-200 shadow-md hover:shadow-xl transition-all duration-500 rounded" onclick="openLightbox('https://github.com/agelmet/PAPASOULI/blob/main/papas7.jpg?raw=true')">
-                    <img src="https://github.com/agelmet/PAPASOULI/blob/main/papas7.jpg?raw=true" alt="Χώρος" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-brand-navy/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
-                        <i data-lucide="expand" class="w-8 h-8 text-white"></i>
+                <button class="w-full break-inside-avoid overflow-hidden group relative reveal delay-200 shadow-lg hover:shadow-2xl hover:shadow-brand-cashmere/30 transition-all duration-500 rounded-2xl border-4 border-white" onclick="openLightbox('https://github.com/agelmet/PAPASOULI/blob/main/papas7.jpg?raw=true')">
+                    <img src="https://github.com/agelmet/PAPASOULI/blob/main/papas7.jpg?raw=true" alt="Χώρος" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-[1s]">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-navy/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6 backdrop-blur-[2px]">
+                        <i data-lucide="zoom-in" class="w-10 h-10 text-white drop-shadow-md"></i>
                     </div>
                 </button>
-                <button class="w-full break-inside-avoid overflow-hidden group relative reveal shadow-md hover:shadow-xl transition-all duration-500 rounded" onclick="openLightbox('https://github.com/agelmet/PAPASOULI/blob/main/papas8.jpg?raw=true')">
-                    <img src="https://github.com/agelmet/PAPASOULI/blob/main/papas8.jpg?raw=true" alt="Χώρος" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-brand-navy/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
-                        <i data-lucide="expand" class="w-8 h-8 text-white"></i>
+                <button class="w-full break-inside-avoid overflow-hidden group relative reveal shadow-lg hover:shadow-2xl hover:shadow-brand-cashmere/30 transition-all duration-500 rounded-2xl border-4 border-white" onclick="openLightbox('https://github.com/agelmet/PAPASOULI/blob/main/papas8.jpg?raw=true')">
+                    <img src="https://github.com/agelmet/PAPASOULI/blob/main/papas8.jpg?raw=true" alt="Χώρος" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-[1s]">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-navy/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6 backdrop-blur-[2px]">
+                        <i data-lucide="zoom-in" class="w-10 h-10 text-white drop-shadow-md"></i>
                     </div>
                 </button>
             </div>
         </div>
     </section>
 
-    <div id="lightbox" class="fixed inset-0 z-[100] bg-brand-charcoal/95 flex items-center justify-center cursor-zoom-out" onclick="closeLightbox()">
-        <button class="absolute top-8 right-8 text-white hover:text-brand-cashmere transition-colors">
-            <i data-lucide="x" class="w-10 h-10"></i>
+    <!-- Lightbox Element -->
+    <div id="lightbox" class="fixed inset-0 z-[100] bg-brand-charcoal/95 flex items-center justify-center cursor-zoom-out backdrop-blur-md" onclick="closeLightbox()">
+        <button class="absolute top-8 right-8 text-white hover:text-brand-cashmere transition-colors bg-white/10 rounded-full p-2 hover:bg-white/20">
+            <i data-lucide="x" class="w-8 h-8"></i>
         </button>
-        <img id="lightbox-img" src="" alt="Enlarged View" class="max-w-[95vw] max-h-[95vh] object-contain shadow-2xl cursor-default" onclick="event.stopPropagation()">
+        <img id="lightbox-img" src="" alt="Enlarged View" class="max-w-[95vw] max-h-[95vh] object-contain shadow-2xl cursor-default rounded-xl border border-white/10" onclick="event.stopPropagation()">
     </div>
 
+    <!-- Reviews Section -->
     <section id="reviews" class="py-32 bg-white overflow-hidden relative">
-        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+        <div class="absolute -left-40 top-40 w-96 h-96 bg-brand-cashmere/10 rounded-full mix-blend-multiply filter blur-[100px] animate-blob"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center relative z-10">
             
             <div class="reveal">
-                <span class="text-brand-accent font-semibold tracking-widest-luxe text-xs uppercase">Αξιολογησεις</span>
-                <h2 class="text-4xl md:text-5xl font-serif text-brand-navy mt-4 mb-6">Εμπειρίες Θεραπευόμενων</h2>
-                <p class="text-brand-slate font-light mb-10 text-lg">Η εμπιστοσύνη σας είναι η μεγαλύτερη απόδειξη της δουλειάς μας.</p>
+                <span class="inline-block px-4 py-1 rounded-full bg-brand-navy/5 text-brand-navy font-bold tracking-widest-luxe text-xs uppercase mb-6 shadow-sm">Αξιολογησεις</span>
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-serif text-brand-navy mb-6 drop-shadow-sm">Εμπειρίες Θεραπευόμενων</h2>
+                <p class="text-brand-slate font-light mb-12 text-lg max-w-md leading-relaxed">Η εμπιστοσύνη σας είναι η μεγαλύτερη απόδειξη της δουλειάς μας. Μια ασφαλής σχέση που χτίζεται βήμα-βήμα.</p>
                 
-                <a href="https://www.doctoranytime.gr/d/Psychologos/papasouli-anastasia" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-4 px-8 py-4 bg-brand-pearl border border-gray-200 rounded-full text-sm font-bold tracking-widest-luxe uppercase text-brand-navy hover:bg-white hover:shadow-luxury transition-all duration-300">
+                <a href="https://www.doctoranytime.gr/d/Psychologos/papasouli-anastasia" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-4 px-8 py-4 bg-white border-2 border-brand-pearl rounded-full text-sm font-bold tracking-widest-luxe uppercase text-brand-navy hover:bg-brand-pearl hover:border-brand-cashmere/50 hover:shadow-glow transition-all duration-300 group">
                     Διαβαστε περισσοτερα στο 
-                    <img src="https://raw.githubusercontent.com/agelmet/KARAZOLI/refs/heads/main/lgoodoc.jpg" class="h-6 object-contain mix-blend-multiply" alt="Doctoranytime">
+                    <img src="https://raw.githubusercontent.com/agelmet/KARAZOLI/refs/heads/main/lgoodoc.jpg" class="h-6 object-contain mix-blend-multiply group-hover:scale-105 transition-transform" alt="Doctoranytime">
                 </a>
             </div>
 
-            <div class="h-[600px] vertical-marquee-container relative overflow-hidden flex justify-center">
-                <div class="w-full max-w-md animate-scroll-y flex flex-col gap-6 pt-6">
+            <!-- Faster scroll animation class applied here: animate-scroll-y (now 20s) -->
+            <div class="h-[650px] vertical-marquee-container relative overflow-hidden flex justify-center">
+                <div class="w-full max-w-lg animate-scroll-y flex flex-col gap-6 pt-6 hover:[animation-play-state:paused]">
+                    <!-- Template script generation block for duplicating content to allow seamless loop -->
                     <div id="review-track" class="flex flex-col gap-6">
-                        </div>
+                        <!-- Reviews Data injected here -->
+                    </div>
                 </div>
             </div>
 
         </div>
     </section>
 
+    <!-- Footer / Contact Section -->
     <footer id="contact" class="bg-brand-charcoal text-brand-pearl pt-32 pb-12 relative overflow-hidden border-t border-white/5">
-        <div class="absolute top-0 right-0 w-[40rem] h-[40rem] bg-brand-cashmere/5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+        <div class="absolute top-0 right-0 w-[50rem] h-[50rem] bg-gradient-to-bl from-brand-blush/10 to-brand-cashmere/5 rounded-full blur-3xl transform translate-x-1/3 -translate-y-1/3 pointer-events-none animate-spin-slow"></div>
+        <div class="absolute bottom-0 left-0 w-[40rem] h-[40rem] bg-brand-sage/5 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2 pointer-events-none"></div>
         
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="grid md:grid-cols-2 lg:grid-cols-12 gap-12 mb-24">
                 
                 <div class="lg:col-span-5 reveal">
-                    <img src="https://github.com/agelmet/PAPASOULI/blob/main/papaslogo.jpg?raw=true" alt="Logo" class="w-20 h-20 rounded-full object-cover mb-8 shadow-glow opacity-80 grayscale hover:grayscale-0 transition-all duration-500">
-                    <p class="text-brand-pearl/60 max-w-sm mb-10 font-light leading-relaxed">
+                    <img src="https://github.com/agelmet/PAPASOULI/blob/main/papaslogo.jpg?raw=true" alt="Logo" class="w-28 h-28 rounded-full object-cover mb-8 shadow-[0_0_30px_rgba(214,201,190,0.4)] border-2 border-white/10 opacity-90 hover:opacity-100 hover:scale-105 transition-all duration-500">
+                    <p class="text-brand-pearl/70 max-w-md mb-10 font-light text-lg leading-relaxed">
                         Η επούλωση ξεκινά με ένα βήμα. Επικοινωνήστε μαζί μας για να ορίσουμε την πρώτη σας συνεδρία σε ένα περιβάλλον απόλυτης αποδοχής.
                     </p>
-                    <a href="https://www.doctoranytime.gr/d/Psychologos/papasouli-anastasia" target="_blank" class="inline-flex items-center justify-center bg-brand-cashmere text-brand-navy px-8 py-4 rounded-full text-xs font-bold uppercase tracking-widest-luxe hover:bg-white transition-colors duration-300 shadow-luxury">
+                    <a href="https://www.doctoranytime.gr/d/Psychologos/papasouli-anastasia" target="_blank" class="inline-flex items-center justify-center bg-brand-cashmere text-brand-navy px-10 py-4 rounded-full text-sm font-bold uppercase tracking-widest-luxe hover:bg-white transition-colors duration-300 shadow-[0_10px_30px_rgba(214,201,190,0.4)] hover:-translate-y-1">
                         Κλειστε Ραντεβου
                     </a>
                 </div>
 
                 <div class="lg:col-span-4 reveal delay-100">
-                    <h4 class="text-sm font-bold text-white mb-8 uppercase tracking-widest-luxe">Στοιχεια Επικοινωνιας</h4>
-                    <ul class="space-y-6 text-brand-pearl/70 font-light">
-                        <li class="flex items-start gap-4">
-                            <i data-lucide="map-pin" class="w-5 h-5 text-brand-cashmere shrink-0 mt-1"></i>
-                            <span>Ήρας 48,<br>Γαλάτσι, Αττική</span>
+                    <h4 class="text-sm font-bold text-white mb-8 uppercase tracking-widest-luxe border-b border-white/10 pb-4 inline-block">Στοιχεια Επικοινωνιας</h4>
+                    <ul class="space-y-6 text-brand-pearl/80 font-light text-lg">
+                        <li class="flex items-start gap-5 group">
+                            <div class="p-3 rounded-full bg-white/5 group-hover:bg-brand-cashmere/20 transition-colors">
+                                <i data-lucide="map-pin" class="w-5 h-5 text-brand-cashmere"></i>
+                            </div>
+                            <span class="pt-2 group-hover:text-white transition-colors">Ήρας 48,<br>Γαλάτσι, Αττική</span>
                         </li>
-                        <li class="flex items-center gap-4">
-                            <i data-lucide="phone" class="w-5 h-5 text-brand-cashmere shrink-0"></i>
-                            <a href="tel:+306980257042" class="hover:text-brand-cashmere transition-colors tracking-wider">+30 698 025 7042</a>
+                        <li class="flex items-center gap-5 group">
+                            <div class="p-3 rounded-full bg-white/5 group-hover:bg-brand-cashmere/20 transition-colors">
+                                <i data-lucide="phone" class="w-5 h-5 text-brand-cashmere"></i>
+                            </div>
+                            <a href="tel:+306980257042" class="hover:text-brand-cashmere transition-colors tracking-wider font-semibold group-hover:text-white">+30 698 025 7042</a>
                         </li>
                     </ul>
 
-                    <div class="mt-10 flex gap-4">
-                        <a href="#" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-cashmere/20 transition-colors">
-                            <img src="https://raw.githubusercontent.com/agelmet/Image-hosting-/refs/heads/main/icons8-facebook-480.png" alt="Facebook" class="w-5 h-5 object-contain">
-                        </a>
-                        <a href="#" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-cashmere/20 transition-colors">
-                            <img src="https://raw.githubusercontent.com/agelmet/Image-hosting-/refs/heads/main/instagram-logo-instagram-icon-transparent-free-png.png.webp" alt="Instagram" class="w-5 h-5 object-contain opacity-80">
-                        </a>
-                        <a href="#" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-cashmere/20 transition-colors">
-                            <img src="https://raw.githubusercontent.com/agelmet/Image-hosting-/refs/heads/main/icons8-linkedin-480.png" alt="LinkedIn" class="w-5 h-5 object-contain">
+                    <div class="mt-12 flex gap-4">
+                        <!-- Facebook Only -->
+                        <a href="https://www.facebook.com/papasoulianastasia/" target="_blank" class="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#1877F2]/20 hover:border-[#1877F2]/50 hover:shadow-[0_0_25px_rgba(24,119,242,0.5)] hover:-translate-y-1 transition-all duration-300">
+                            <img src="https://raw.githubusercontent.com/agelmet/Image-hosting-/refs/heads/main/icons8-facebook-480.png" alt="Facebook" class="w-7 h-7 object-contain">
                         </a>
                     </div>
                 </div>
 
                 <div class="lg:col-span-3 reveal delay-200">
-                    <h4 class="text-sm font-bold text-white mb-8 uppercase tracking-widest-luxe">Ωραριο Λειτουργιας</h4>
-                    <ul class="space-y-4 text-brand-pearl/70 font-light">
-                        <li class="flex items-center gap-4">
-                            <i data-lucide="clock" class="w-5 h-5 text-brand-cashmere shrink-0"></i>
-                            <span class="tracking-wide text-sm">Δευτέρα - Σάββατο</span>
+                    <h4 class="text-sm font-bold text-white mb-8 uppercase tracking-widest-luxe border-b border-white/10 pb-4 inline-block">Ωραριο Λειτουργιας</h4>
+                    <ul class="space-y-5 text-brand-pearl/80 font-light text-lg">
+                        <li class="flex items-center gap-5 group">
+                            <div class="p-3 rounded-full bg-white/5 group-hover:bg-brand-cashmere/20 transition-colors">
+                                <i data-lucide="clock" class="w-5 h-5 text-brand-cashmere"></i>
+                            </div>
+                            <span class="tracking-wide text-base group-hover:text-white transition-colors">Δευτέρα - Σάββατο</span>
                         </li>
-                        <li class="pl-9 text-brand-cashmere text-xs font-semibold uppercase tracking-widest-luxe">
+                        <li class="pl-[4.5rem] text-brand-cashmere text-sm font-bold uppercase tracking-widest-luxe">
                             Κατοπιν Ραντεβου
                         </li>
                     </ul>
@@ -532,9 +589,9 @@
             </div>
 
             <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 reveal">
-                <p class="text-brand-pearl/40 text-xs font-light">© 2026 Αναστασία Παπασούλη. Όλα τα δικαιώματα διατηρούνται.</p>
-                <p class="text-brand-pearl/40 text-xs font-light">
-                    Designed by <a href="https://advonmedia.com" target="_blank" rel="noopener" class="text-white hover:text-brand-cashmere transition-colors">Advon Media</a>
+                <p class="text-brand-pearl/40 text-xs font-light tracking-wide">© 2026 Αναστασία Παπασούλη. Όλα τα δικαιώματα διατηρούνται.</p>
+                <p class="text-brand-pearl/40 text-xs font-light tracking-wide">
+                    Designed by <a href="https://advonmedia.com" target="_blank" rel="noopener" class="text-white font-semibold hover:text-brand-cashmere hover:drop-shadow-[0_0_10px_rgba(214,201,190,0.8)] transition-all">Advon Media</a>
                 </p>
             </div>
         </div>
@@ -565,11 +622,11 @@
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
-                navbar.classList.add('py-2');
+                navbar.classList.add('py-2', 'bg-brand-charcoal/30', 'backdrop-blur-xl');
                 navbar.classList.remove('py-4');
             } else {
                 navbar.classList.add('py-4');
-                navbar.classList.remove('py-2');
+                navbar.classList.remove('py-2', 'bg-brand-charcoal/30', 'backdrop-blur-xl');
             }
         });
 
@@ -633,23 +690,24 @@
         ];
 
         const generateReviewHTML = (review) => `
-            <div class="bg-brand-pearl p-8 rounded-2xl border border-gray-200 shadow-sm w-full">
-                <div class="flex justify-between items-start mb-4">
+            <div class="bg-white p-10 rounded-[2rem] border border-brand-pearl shadow-[0_15px_40px_-10px_rgba(0,0,0,0.05)] w-full relative overflow-hidden group hover:shadow-glow hover:-translate-y-1 transition-all duration-300">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-brand-cashmere/10 to-transparent rounded-bl-full pointer-events-none"></div>
+                <div class="flex justify-between items-start mb-6 relative z-10">
                     <div>
-                        <div class="flex items-center gap-1 text-brand-navy mb-1">
+                        <div class="flex items-center gap-1 text-brand-navy mb-2">
                             <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
                         </div>
-                        <span class="font-bold text-brand-navy font-serif text-lg">${review.score} / 10</span>
+                        <span class="font-bold text-brand-navy font-serif text-2xl drop-shadow-sm">${review.score} <span class="text-brand-slate text-lg font-light">/ 10</span></span>
                     </div>
-                    <img src="https://raw.githubusercontent.com/agelmet/KARAZOLI/refs/heads/main/lgoodoc.jpg" class="h-5 mix-blend-multiply opacity-70" alt="DoctorAnytime">
+                    <img src="https://raw.githubusercontent.com/agelmet/KARAZOLI/refs/heads/main/lgoodoc.jpg" class="h-6 mix-blend-multiply opacity-60 group-hover:opacity-100 transition-opacity" alt="DoctorAnytime">
                 </div>
-                <p class="text-brand-slate text-sm mb-6 font-light italic leading-relaxed">"${review.text}"</p>
-                <div class="border-t border-gray-200 pt-4 flex justify-between items-end">
+                <p class="text-brand-slate text-base mb-8 font-light italic leading-relaxed relative z-10">"${review.text}"</p>
+                <div class="border-t border-gray-100 pt-5 flex justify-between items-end relative z-10">
                     <div>
-                        <p class="text-xs font-bold text-brand-navy tracking-wider uppercase">${review.name}</p>
-                        <p class="text-[10px] text-brand-accent mt-1">${review.count}</p>
+                        <p class="text-sm font-bold text-brand-navy tracking-wider uppercase">${review.name}</p>
+                        <p class="text-xs text-brand-accent mt-1">${review.count}</p>
                     </div>
-                    <p class="text-[10px] text-brand-accent">${review.date}</p>
+                    <p class="text-xs text-brand-accent font-medium">${review.date}</p>
                 </div>
             </div>
         `;
